@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Google Search - Govt Websites</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="https://www.google.com/favicon.ico" />
+  </head>
+  <body>
+    <!-- HEADER  -->
+    <header class="header">
+      <div class="header-left">
+        <a
+          href="#"
+          class="logo"
+          onclick="
+            resetPage();
+            return false;
+          "
+        >
+          <span class="logo-g">G</span><span class="logo-o1">o</span
+          ><span class="logo-o2">o</span><span class="logo-g2">g</span
+          ><span class="logo-l">l</span><span class="logo-e">e</span>
+        </a>
+      </div>
+
+      <div class="header-center">
+        <div class="search-bar" id="searchBarWrapper">
+          <svg
+            class="search-icon-left"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+            />
+          </svg>
+          <input
+            type="text"
+            class="search-input"
+            value="govt websites with many links"
+            id="searchInput"
+            autocomplete="off"
+          />
+          <div class="search-right-icons">
+            <button
+              class="icon-btn"
+              id="clearBtn"
+              onclick="clearSearch()"
+              title="Clear"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                />
+              </svg>
+            </button>
+            <div class="divider-vert"></div>
+            <button class="icon-btn" title="Search by voice">
+              <svg viewBox="0 0 24 24" fill="#4285f4">
+                <path
+                  d="M12 15c1.66 0 2.99-1.34 2.99-3L15 6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 15 6.7 12H5c0 3.42 2.72 6.23 6 6.72V22h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"
+                />
+              </svg>
+            </button>
+            <button class="icon-btn" title="Search by image">
+              <svg viewBox="0 0 24 24" fill="#34a853">
+                <path
+                  d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.65 0-3 1.35-3 3s1.35 3 3 3 3-1.35 3-3-1.35-3-3-3z"
+                />
+              </svg>
+            </button>
+            <button
+              class="search-submit-btn"
+              onclick="doSearch()"
+              title="Search"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                />
+              </svg>
+            </button>
+          </div>
+          <!-- Suggestion Dropdown -->
+          <ul class="suggest-box" id="suggestBox"></ul>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button class="apps-btn" title="Google apps">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
+            />
+          </svg>
+        </button>
+        <div class="avatar" title="My Account">M</div>
+      </div>
+    </header>
+
+    <!-- NAV TABS -->
+    <nav class="nav-tabs">
+      <div class="nav-inner">
+        <a href="#" class="nav-tab active" data-tab="all">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+            />
+          </svg>
+          All
+        </a>
+        <a href="#" class="nav-tab" data-tab="images">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"
+            />
+          </svg>
+          Images
+        </a>
+        <a href="#" class="nav-tab" data-tab="videos">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"
+            />
+          </svg>
+          Videos
+        </a>
+        <a href="#" class="nav-tab" data-tab="news">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+            />
+          </svg>
+          News
+        </a>
+        <a href="#" class="nav-tab" data-tab="more">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"
+            />
+          </svg>
+          More
+        </a>
+        <div class="nav-divider"></div>
+        <a href="#" class="nav-tab tools-tab" data-tab="tools">Tools</a>
+      </div>
+    </nav>
+
+    <!--  MAIN CONTENT  -->
+    <main class="main-content">
+      <div class="results-container" id="resultsContainer">
+        <!-- BFS Info Panel -->
+        <div class="bfs-panel" id="bfsPanel">
+          <div class="bfs-header">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path
+                d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+              />
+            </svg>
+            <span
+              >Graph BFS Traversal Active — click any link to trace the
+              path</span
+            >
+            <button class="bfs-run-btn" onclick="runBFS()">
+              ▶ Run BFS Now
+            </button>
+          </div>
+          <div class="bfs-log" id="bfsLog">
+            <span class="bfs-idle">Waiting for BFS traversal…</span>
+          </div>
+        </div>
+
+        <!-- Result count -->
+        <div class="result-stats">About 1,23,00,000 results (0.42 seconds)</div>
+
+        <!-- ══ RESULT 1 — india.gov.in ══ -->
+        <div class="result-card" data-index="0">
+          <div class="result-source">
+            <img
+              class="site-favicon"
+              src="https://www.google.com/s2/favicons?domain=india.gov.in&sz=32"
+              alt="favicon"
+              onerror="
+                this.src =
+                  'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><circle cx=\'12\' cy=\'12\' r=\'12\' fill=\'%23303134\'/></svg>'
+              "
+            />
+            <div class="site-info">
+              <span class="site-name">National Portal of India</span>
+              <span class="site-url">https://india.gov.in</span>
+            </div>
+            <button
+              class="more-btn"
+              onclick="toggleMenu(this)"
+              title="More options"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+          <h3 class="result-title">
+            <a href="https://india.gov.in" class="result-main-link">
+              National Portal of India: Home
+              <span class="verified-badge">✓</span>
+            </a>
+          </h3>
+          <p class="result-snippet">
+            The National <strong>Portal</strong> of India provides single-window
+            access to information and services offered by the
+            <strong>government</strong> at all levels. Find central and state
+            government ministries, departments, schemes, forms, and citizen
+            services.
+          </p>
+          <div class="sitelinks">
+            <a
+              href="https://india.gov.in/topics/agriculture"
+              class="result-link"
+              data-dead="false"
+              >Agriculture</a
+            >
+            <a
+              href="https://india.gov.in/topics/education"
+              class="result-link"
+              data-dead="true"
+              >Education</a
+            >
+            <a
+              href="https://india.gov.in/topics/health"
+              class="result-link"
+              data-dead="true"
+              >Health</a
+            >
+            <a
+              href="https://india.gov.in/topics/infrastructure"
+              class="result-link"
+              data-dead="false"
+              >Infrastructure</a
+            >
+          </div>
+        </div>
+
+        <!-- ══ RESULT 2 — emaxindia.in  -->
+        <div class="result-card" data-index="1">
+          <div class="result-source">
+            <img
+              class="site-favicon"
+              src="https://www.google.com/s2/favicons?domain=emaxindia.in&sz=32"
+              alt="favicon"
+              onerror="
+                this.src =
+                  'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><circle cx=\'12\' cy=\'12\' r=\'12\' fill=\'%23303134\'/></svg>'
+              "
+            />
+            <div class="site-info">
+              <span class="site-name">emaxindia.in</span>
+              <span class="site-url"
+                >https://www.emaxindia.in › list-of-popular-government...</span
+              >
+            </div>
+            <button
+              class="more-btn"
+              onclick="toggleMenu(this)"
+              title="More options"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+          <h3 class="result-title">
+            <a
+              href="https://www.emaxindia.in/list-of-popular-government-websites-in-india/"
+              class="result-main-link"
+            >
+              List of popular government websites in India - emaxindia
+              <span class="verified-badge">✓</span>
+            </a>
+          </h3>
+          <p class="result-snippet">
+            List of Govt. Website in india ; 1, <strong>uidai.gov.in</strong>, N
+            ; 2, incometaxindiaefiling.gov.in, N ; 3, indiapost.gov.in, Y ; 4,
+            ap.gov.in, Y …
+            <a
+              href="https://www.emaxindia.in/list-of-popular-government-websites-in-india/"
+              class="read-more result-link"
+              data-dead="false"
+              >Read more</a
+            >
+          </p>
+        </div>
+
+        <!-- ══ RESULT 3 — mha.gov.in ══ -->
+        <div class="result-card" data-index="2">
+          <div class="result-source">
+            <img
+              class="site-favicon"
+              src="https://www.google.com/s2/favicons?domain=mha.gov.in&sz=32"
+              alt="favicon"
+              onerror="
+                this.src =
+                  'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><circle cx=\'12\' cy=\'12\' r=\'12\' fill=\'%23303134\'/></svg>'
+              "
+            />
+            <div class="site-info">
+              <span class="site-name">Ministry of Home Affairs</span>
+              <span class="site-url"
+                >https://www.mha.gov.in › other-government-websites</span
+              >
+            </div>
+            <button
+              class="more-btn"
+              onclick="toggleMenu(this)"
+              title="More options"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+          <h3 class="result-title">
+            <a
+              href="https://www.mha.gov.in/en/other-government-websites"
+              class="result-main-link"
+            >
+              Other Government Websites <span class="verified-badge">✓</span>
+            </a>
+          </h3>
+          <p class="result-snippet">
+            <strong>E-Gazette</strong> · Kendriya Police Kalyan Bhandar ·
+            MOSPI(SDGs, KPIs) · Yoga Break Protocol/App · Open Government Data ·
+            Vidhi Sahitya Prakashan · Election Commission of …
+            <a
+              href="https://www.mha.gov.in/en/other-government-websites"
+              class="read-more result-link"
+              data-dead="false"
+              >Read more</a
+            >
+          </p>
+          <div class="sitelinks">
+            <a
+              href="https://egazette.gov.in"
+              class="result-link"
+              data-dead="false"
+              >E-Gazette</a
+            >
+            <a href="https://data.gov.in" class="result-link" data-dead="false"
+              >Open Govt Data</a
+            >
+            <a href="https://eci.gov.in" class="result-link" data-dead="false"
+              >Election Commission</a
+            >
+            <a
+              href="https://mospi.gov.in/sdgs-broken"
+              class="result-link"
+              data-dead="true"
+              >MOSPI SDGs</a
+            >
+          </div>
+        </div>
+
+        <!-- ══ RESULT 4 — mygov.in ══ -->
+        <div class="result-card" data-index="3">
+          <div class="result-source">
+            <img
+              class="site-favicon"
+              src="https://www.google.com/s2/favicons?domain=mygov.in&sz=32"
+              alt="favicon"
+              onerror="
+                this.src =
+                  'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><circle cx=\'12\' cy=\'12\' r=\'12\' fill=\'%23303134\'/></svg>'
+              "
+            />
+            <div class="site-info">
+              <span class="site-name">MyGov.in</span>
+              <span class="site-url">https://mygov.in</span>
+            </div>
+            <button
+              class="more-btn"
+              onclick="toggleMenu(this)"
+              title="More options"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+          <h3 class="result-title">
+            <a href="https://www.mygov.in" class="result-main-link">
+              MyGov.in | MyGov: A Platform for Citizen Engagement towards …
+              <span class="verified-badge">✓</span>
+            </a>
+          </h3>
+          <p class="result-snippet">
+            <strong>MyGov</strong> is an innovative platform to build a
+            partnership between Citizens and Government with the help of
+            technology for growth and development of India. Participate in
+            polls, discussions, and citizen engagement activities.
+          </p>
+        </div>
+
+        <!-- ══ RESULT 5 — WordPress ══ -->
+        <div class="result-card" data-index="4">
+          <div class="result-source">
+            <img
+              class="site-favicon"
+              src="https://www.google.com/s2/favicons?domain=wordpress.com&sz=32"
+              alt="favicon"
+              onerror="
+                this.src =
+                  'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><circle cx=\'12\' cy=\'12\' r=\'12\' fill=\'%23303134\'/></svg>'
+              "
+            />
+            <div class="site-info">
+              <span class="site-name">WordPress.com</span>
+              <span class="site-url"
+                >https://pkas2018.wordpress.com ›
+                list-of-central-govern...</span
+              >
+            </div>
+            <button
+              class="more-btn"
+              onclick="toggleMenu(this)"
+              title="More options"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+          <h3 class="result-title">
+            <a
+              href="https://pkas2018.wordpress.com/list-of-central-government-websites/"
+              class="result-main-link"
+            >
+              List of Central Government Websites
+              <span class="verified-badge">✓</span>
+            </a>
+          </h3>
+          <p class="result-snippet">
+            <strong>List of Central Government Websites</strong>. Common Service
+            Centres Scheme, Ministry of Electronics and Information Technology.
+            Includes detailed categorized listing of all central government
+            portals, departments, and public service websites.
+          </p>
+          <div class="sitelinks">
+            <a href="https://meity.gov.in" class="result-link" data-dead="false"
+              >MeitY</a
+            >
+            <a
+              href="https://csc.gov.in/old-portal"
+              class="result-link"
+              data-dead="true"
+              >CSC Portal (Old)</a
+            >
+          </div>
+        </div>
+
+        <!-- ══ RESULT 6 — NIC ══ -->
+        <div class="result-card" data-index="5">
+          <div class="result-source">
+            <img
+              class="site-favicon"
+              src="https://www.google.com/s2/favicons?domain=nic.in&sz=32"
+              alt="favicon"
+              onerror="
+                this.src =
+                  'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><circle cx=\'12\' cy=\'12\' r=\'12\' fill=\'%23303134\'/></svg>'
+              "
+            />
+            <div class="site-info">
+              <span class="site-name">NIC - National Informatics Centre</span>
+              <span class="site-url"
+                >https://www.nic.in › government-portals</span
+              >
+            </div>
+            <button
+              class="more-btn"
+              onclick="toggleMenu(this)"
+              title="More options"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+          <h3 class="result-title">
+            <a href="https://www.nic.in" class="result-main-link">
+              NIC – Government Portals &amp; Digital Infrastructure
+            </a>
+          </h3>
+          <p class="result-snippet">
+            The National Informatics Centre (NIC) provides
+            <strong>e-Governance</strong> infrastructure and support for
+            government websites. NIC hosts hundreds of central and state
+            government portals including key services like DigiLocker, UMANG,
+            e-Office, and eSanjeevani.
+          </p>
+          <div class="sitelinks">
+            <a
+              href="https://digilocker.gov.in"
+              class="result-link"
+              data-dead="false"
+              >DigiLocker</a
+            >
+            <a
+              href="https://web.umang.gov.in"
+              class="result-link"
+              data-dead="false"
+              >UMANG</a
+            >
+            <a
+              href="https://esanjeevani.mohfw.gov.in"
+              class="result-link"
+              data-dead="false"
+              >eSanjeevani</a
+            >
+          </div>
+        </div>
+
+        <!-- ══ RESULT 7 — Digital India ══ -->
+        <div class="result-card" data-index="6">
+          <div class="result-source">
+            <img
+              class="site-favicon"
+              src="https://www.google.com/s2/favicons?domain=digitalindia.gov.in&sz=32"
+              alt="favicon"
+              onerror="
+                this.src =
+                  'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><circle cx=\'12\' cy=\'12\' r=\'12\' fill=\'%23303134\'/></svg>'
+              "
+            />
+            <div class="site-info">
+              <span class="site-name">Digital India</span>
+              <span class="site-url"
+                >https://digitalindia.gov.in › resources</span
+              >
+            </div>
+            <button
+              class="more-btn"
+              onclick="toggleMenu(this)"
+              title="More options"
+            >
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
+                />
+              </svg>
+            </button>
+          </div>
+          <h3 class="result-title">
+            <a href="https://www.digitalindia.gov.in" class="result-main-link">
+              Digital India – Transforming India through Technology
+            </a>
+          </h3>
+          <p class="result-snippet">
+            Digital India is a flagship programme of the Government of India
+            with a vision to transform India into a
+            <strong>digitally empowered</strong> society and knowledge economy.
+            Access a wide range of digital government services, initiatives, and
+            citizen portals.
+          </p>
+        </div>
+
+        <!-- ══ PAGINATION ══ -->
+        <div class="pagination">
+          <div class="pagination-logo">
+            <span style="color: #4285f4">G</span
+            ><span style="color: #ea4335">o</span
+            ><span style="color: #fbbc05">o</span
+            ><span style="color: #4285f4">g</span
+            ><span style="color: #34a853">l</span
+            ><span style="color: #ea4335">e</span>
+          </div>
+          <div class="page-links">
+            <a
+              href="#"
+              class="page-link active"
+              onclick="
+                setPage(this, 1);
+                return false;
+              "
+              >1</a
+            >
+            <a
+              href="#"
+              class="page-link"
+              onclick="
+                setPage(this, 2);
+                return false;
+              "
+              >2</a
+            >
+            <a
+              href="#"
+              class="page-link"
+              onclick="
+                setPage(this, 3);
+                return false;
+              "
+              >3</a
+            >
+            <a
+              href="#"
+              class="page-link"
+              onclick="
+                setPage(this, 4);
+                return false;
+              "
+              >4</a
+            >
+            <a
+              href="#"
+              class="page-link"
+              onclick="
+                setPage(this, 5);
+                return false;
+              "
+              >5</a
+            >
+            <a
+              href="#"
+              class="page-link"
+              onclick="
+                setPage(this, 6);
+                return false;
+              "
+              >6</a
+            >
+            <a
+              href="#"
+              class="page-link"
+              onclick="
+                setPage(this, 7);
+                return false;
+              "
+              >7</a
+            >
+            <a
+              href="#"
+              class="page-link"
+              onclick="
+                setPage(this, 8);
+                return false;
+              "
+              >8</a
+            >
+            <a
+              href="#"
+              class="page-link"
+              onclick="
+                setPage(this, 9);
+                return false;
+              "
+              >9</a
+            >
+            <a
+              href="#"
+              class="page-link next-page"
+              onclick="
+                setPage(this, 2);
+                return false;
+              "
+              >Next ›</a
+            >
+          </div>
+        </div>
+      </div>
+      <!-- /results-container -->
+    </main>
+
+    <!-- ══════════════════ FOOTER ══════════════════ -->
+    <footer class="footer">
+      <div class="footer-location">India</div>
+      <div class="footer-links-top">
+        <a href="#">About</a>
+        <a href="#">Advertising</a>
+        <a href="#">Business</a>
+        <a href="#">How Search works</a>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-links-bottom">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Settings</a>
+      </div>
+    </footer>
+
+    <!-- ══════════════════ CONTEXT MENU ══════════════════ -->
+    <div class="context-menu" id="contextMenu">
+      <a href="#" onclick="return false;">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"
+          />
+        </svg>
+        About this result
+      </a>
+      <a href="#" onclick="return false;">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"
+          />
+        </svg>
+        More from this site
+      </a>
+      <a href="#" class="menu-danger" onclick="return false;">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+          />
+        </svg>
+        Remove result
+      </a>
+    </div>
+
+    <!-- ══════════════════ 404 OVERLAY ══════════════════ -->
+    <div class="overlay-404" id="overlay404">
+      <div class="overlay-card">
+        <div class="overlay-code">404</div>
+        <div class="overlay-icon">
+          <svg
+            viewBox="0 0 24 24"
+            width="48"
+            height="48"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v4M12 16h.01" />
+          </svg>
+        </div>
+        <h2 class="overlay-title">Page Not Found</h2>
+        <p class="overlay-msg" id="overlay404Msg">
+          This page could not be reached. The link may be broken or outdated.
+        </p>
+        <div class="overlay-url" id="overlay404Url"></div>
+        <div class="overlay-actions">
+          <button class="btn-recover" id="recoverBtn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path
+                d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"
+              />
+            </svg>
+            Recover Page
+          </button>
+          <button class="btn-back" onclick="close404()">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path
+                d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+              />
+            </svg>
+            Go Back
+          </button>
+        </div>
+        <div class="recovering-spinner" id="recoveringSpinner">
+          <div class="spinner"></div>
+          <span>Searching for recovery link…</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ CHECKING TOAST ══════════════════ -->
+    <div class="toast" id="checkingToast">
+      <div class="spinner-sm"></div>
+      <span id="toastMsg">Checking link…</span>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
