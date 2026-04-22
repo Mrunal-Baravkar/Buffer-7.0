@@ -11,17 +11,21 @@ While browsing the web, users frequently encounter broken or outdated links (404
 This project aims to **detect such dead links in real-time and intelligently recover them**, instead of leaving users stuck on error pages.
 
 ---
+## Data Structures Used
 
-## Features
+### HashMap
 
-* Detects dead links dynamically
-* Displays custom **404 Not Found page** (instead of browser default)
-* Recovers links using **HashMap (O(1) lookup)**
-* Stores both **active and dead links** in the system
-* Uses **real-world URLs**
-* Implements **DSA concepts (Graph + BFS traversal)**
-* Displays traversal and recovery logs in terminal
-* Clean **Google-style UI** (no prior indication of dead links)
+* Stores link status (**ACTIVE / DEAD**)
+* Maps dead links to recovery links
+* Provides **O(1)** lookup time
+
+### Graph
+
+* Represents relationships between links
+
+### BFS Traversal
+
+* Used to find the **nearest valid working link**
 
 ---
 
@@ -49,21 +53,16 @@ This project aims to **detect such dead links in real-time and intelligently rec
 
 ---
 
-## Data Structures Used
+## Features
 
-### HashMap
-
-* Stores link status (**ACTIVE / DEAD**)
-* Maps dead links to recovery links
-* Provides **O(1)** lookup time
-
-### Graph
-
-* Represents relationships between links
-
-### BFS Traversal
-
-* Used to find the **nearest valid working link**
+* Detects dead links dynamically
+* Displays custom **404 Not Found page** (instead of browser default)
+* Recovers links using **HashMap (O(1) lookup)**
+* Stores both **active and dead links** in the system
+* Uses **real-world URLs**
+* Implements **DSA concepts (Graph + BFS traversal)**
+* Displays traversal and recovery logs in terminal
+* Clean **Google-style UI** (no prior indication of dead links)
 
 ---
 
