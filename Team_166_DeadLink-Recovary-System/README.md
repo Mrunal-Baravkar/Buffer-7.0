@@ -67,17 +67,18 @@ This project aims to **detect such dead links in real-time and intelligently rec
 
 ---
 
+
 ## Project Structure
 
+```
 DeadLinkRecovery/
-
 │
 ├── index.html      # Frontend UI (Google-style layout)
 ├── style.css       # Styling (dark theme)
 ├── script.js       # Frontend logic + API calls
 ├── server.java     # Backend (HashMap + BFS traversal)
 └── README.md       # Project documentation
-
+```
 ---
 
 ## Technologies Used
