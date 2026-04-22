@@ -3,10 +3,14 @@
 A smart web-based system that detects broken (dead) links and recovers them using a **HashMap-based backend** and **BFS traversal**.
 Built with a **Google-like UI** and integrated with a **Java backend server**.
 
+---
+
 ## Problem Statement
 
 While browsing the web, users frequently encounter broken or outdated links (404 errors), which leads to poor user experience and loss of important information.
 This project aims to **detect such dead links in real-time and intelligently recover them**, instead of leaving users stuck on error pages.
+
+---
 
 ## Features
 
@@ -18,6 +22,8 @@ This project aims to **detect such dead links in real-time and intelligently rec
 * Implements **DSA concepts (Graph + BFS traversal)**
 * Displays traversal and recovery logs in terminal
 * Clean **Google-style UI** (no prior indication of dead links)
+
+---
 
 ## How It Works
 
@@ -40,6 +46,8 @@ This project aims to **detect such dead links in real-time and intelligently rec
    * `/recover` API uses **BFS traversal on graph**
    * Finds nearest valid (active) link
    * Redirects user to recovered page
+
+---
 
 ## Data Structures Used
 
@@ -70,11 +78,15 @@ DeadLinkRecovery/
 ├── server.java     # Backend (HashMap + BFS traversal)
 └── README.md       # Project documentation
 
+---
+
 ## Technologies Used
 
 * Frontend: HTML, CSS, JavaScript
 * Backend: Java (HttpServer)
 * Concepts: Graph, BFS, HashMap
+
+---
 
 ## How to Run
 
@@ -84,6 +96,8 @@ DeadLinkRecovery/
 javac server.java
 java server
 ```
+
+---
 
 ### 2. Run Frontend
 
@@ -101,9 +115,13 @@ java server
 * Click **Recover Page**
   → Redirects to a working link (e.g., Wikipedia)
 
+---
+
 ## Video Demo
 
 (Add your Google Drive video link here — make sure access is set to **Anyone with the link**)
+
+---
 
 ## Future Improvements
 
@@ -112,11 +130,13 @@ java server
 * Link health analytics dashboard
 * AI-based link prediction
 
+---
 
 ## Team Members
 
 * Gauri Kondawar
 * Mrunal Baravkar
+---
 
 ## Author
 
