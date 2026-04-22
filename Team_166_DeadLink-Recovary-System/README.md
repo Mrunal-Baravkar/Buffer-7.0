@@ -1,46 +1,74 @@
-DeadLink Recovery System
+# DeadLink Recovery System
 
-A smart web-based system that detects broken (dead) links and recovers them using a **HashMap-based backend** and **BFS traversal** .
+A smart web-based system that detects broken (dead) links and recovers them using a **HashMap-based backend** and **BFS traversal**.
 Built with a **Google-like UI** and integrated with a **Java backend server**.
 
-##  Features
+## Problem Statement
 
-*  Detects dead links dynamically
-*  Shows custom **404 Not Found page** (not browser default)
-*  Recovers links using **HashMap (O(1)) lookup**
-*  Uses **real-world URLs**
-*  Implements **DSA concepts (Graph + BFS traversal)**
-*  Displays traversal + recovery logs in terminal
-*  Clean Google-style UI (no visual hints of dead links)
+While browsing the web, users frequently encounter broken or outdated links (404 errors), which leads to poor user experience and loss of important information.
+This project aims to **detect such dead links in real-time and intelligently recover them**, instead of leaving users stuck on error pages.
 
-##  How It Works
+## Features
+
+* Detects dead links dynamically
+* Displays custom **404 Not Found page** (instead of browser default)
+* Recovers links using **HashMap (O(1) lookup)**
+* Stores both **active and dead links** in the system
+* Uses **real-world URLs**
+* Implements **DSA concepts (Graph + BFS traversal)**
+* Displays traversal and recovery logs in terminal
+* Clean **Google-style UI** (no prior indication of dead links)
+
+## How It Works
 
 1. User clicks a link on the UI
-2. JavaScript intercepts the click
-3. Backend `/check` API verifies:
 
-   * If link exists in **HashMap → DEAD**
-   * Else → ACTIVE
-4. If DEAD:
+2. JavaScript intercepts the request
 
-   * Show custom **404 UI + Recover button**
-5. On clicking **Recover**:
+3. Backend `/check` API verifies link status using HashMap:
 
-   * Backend `/recover` API returns original working link
-   * User is redirected
+   * If link is marked as **DEAD → show custom 404 page**
+   * If link is **ACTIVE → redirect normally**
 
-##  Project Structure
+4. HashMap contains:
 
-```
+   * Active links
+   * Dead links mapped to their recovery links
+
+5. On clicking **Recover Page**:
+
+   * `/recover` API uses **BFS traversal on graph**
+   * Finds nearest valid (active) link
+   * Redirects user to recovered page
+
+## Data Structures Used
+
+### HashMap
+
+* Stores link status (**ACTIVE / DEAD**)
+* Maps dead links to recovery links
+* Provides **O(1)** lookup time
+
+### Graph
+
+* Represents relationships between links
+
+### BFS Traversal
+
+* Used to find the **nearest valid working link**
+
+---
+
+## Project Structure
+
 DeadLinkRecovery/
+
 │
 ├── index.html      # Frontend UI (Google-style layout)
 ├── style.css       # Styling (dark theme)
 ├── script.js       # Frontend logic + API calls
 ├── server.java     # Backend (HashMap + BFS traversal)
 └── README.md       # Project documentation
-```
-
 
 ## Technologies Used
 
@@ -48,44 +76,48 @@ DeadLinkRecovery/
 * Backend: Java (HttpServer)
 * Concepts: Graph, BFS, HashMap
 
+## How to Run
 
-#  How to Run
-
-# 1. Start Backend Server
+### 1. Start Backend Server
 
 ```bash
 javac server.java
 java server
 ```
 
----
-
-# 2. Run Frontend
+### 2. Run Frontend
 
 * Open `index.html` using **Live Server (VS Code)**
-* OR open in browser
+  OR
+* Open directly in your browser
 
 ---
 
-##  Example Flow
+## Example Flow
 
-* Click a dead link →
-  ➜ Shows **404 Not Found**
-* Click "Recover Page" →
-  ➜ Redirects to working site (e.g., Wikipedia)
+* Click a dead link
+  → Custom **404 Not Found** page appears
 
-##  Notes
+* Click **Recover Page**
+  → Redirects to a working link (e.g., Wikipedia)
 
-* Dead links are controlled using a **HashMap**
-* HTTP status alone is not reliable (many sites return 200 for invalid pages)
-* UI does NOT show which links are dead beforehand
+## Video Demo
 
-##  Future Improvements
+(Add your Google Drive video link here — make sure access is set to **Anyone with the link**)
 
-* Visual graph traversal
+## Future Improvements
+
+* Visual graph traversal representation
 * Multiple recovery suggestions
 * Link health analytics dashboard
+* AI-based link prediction
 
-##  Author
 
-* Built as a **DSA + Web Integration Project**
+## Team Members
+
+* Gauri Kondawar
+* Mrunal Baravkar
+
+## Author
+
+Built as a **DSA + Web Integration Project** combining real-world web problems with efficient data structures.
